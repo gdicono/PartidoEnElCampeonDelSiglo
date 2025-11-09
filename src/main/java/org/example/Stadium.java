@@ -16,6 +16,8 @@ public class Stadium {
     private int nacionalCount = 0; // contador de hinchas de nacional para distribución de asientos
 
     private final Queue<HooliganInfo> waitingQueue = new ConcurrentLinkedQueue<>(); // cola que sigue con el principio FIFO - tiene de cola enlazada para hilos (puede agregar o sacar elementos de diferentes hilos sin problemas de concurrencia)
+    private volatile boolean closed = false; // bandera para saber si el estadio ya cerró
+
 
     public Stadium(int capacity) { // constructor
         this.seats = new Semaphore(capacity);
@@ -37,15 +39,17 @@ public class Stadium {
 
         }
         else {
+            while(!closed)
+            {Thread.yield();} // cede la CPU. evitamos bloquear otros hilos
             System.out.println("Hincha "+ id + " de " + team + " se va, no hay más lugar en el campeón del siglo");
         }
     }
 
-    public void ticketController(int totalFans) throws InterruptedException {
+    public void ticketController(int capacity) throws InterruptedException {
 
         int attended = 0;
 
-        while (attended < totalFans)
+        while (attended < capacity)
             {
                 hooligans.acquire(); // espera hasta que haya al menos un hincha que quiera entrar. Si no hay, el controlador se bloquea acá
 
@@ -55,8 +59,8 @@ public class Stadium {
                 if (next != null) {
                     hooligansWaiting--;
                     System.out.println("Controlador atiende al hincha " + next.id + " (" + next.team + "). (Esperando: " + hooligansWaiting + ")");
-
                     mutex.release();  // sale de la sección crítica para que otros hilos puedan acceder
+
                     checkTicket(next); // simula el proceso de revisar el ticket antes de dejar entrar
                     controler.release(); // libera al hincha para que pueda entrar (simula que el verificador le da paso)
 
@@ -67,6 +71,7 @@ public class Stadium {
                 }
             }
         System.out.println("Todos los hinchas fueron atendidos. El controlador cierra el estadio.");
+        closed = true; // bandera cambio a true. cerro el campeon de siglo
     }
 
     public void checkTicket(HooliganInfo hincha) throws InterruptedException {
