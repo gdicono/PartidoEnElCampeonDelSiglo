@@ -5,20 +5,20 @@ import java.awt.*;
 
 public class StartGUI extends JFrame {
     public StartGUI() {
-        setTitle("Simulador del Campeón del Siglo - Configuración inicial");
-        setSize(400, 250);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setTitle("Simulador del Campeón del Siglo - Configuración inicial"); // título de la ventana
+        setSize(400, 250); // tamaño de la ventana (ancho, alto)
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // define que al cerrar la ventana se termine el programa
+        setLocationRelativeTo(null); // centra la ventana en la pantalla
 
         // Panel principal
-        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10)); // GridLayout(4, 2, 10, 10): 4 filas, 2 columnas, con separación de 10px
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // margen interno del panel (arriba, izquierda, abajo, derecha)
 
         JLabel capacityLabel = new JLabel("Capacidad del estadio:");
-        JTextField capacityField = new JTextField();
+        JTextField capacityField = new JTextField(); // para escribir la capacidad
 
         JLabel hooligansLabel = new JLabel("Cantidad de hinchas que llegan:");
-        JTextField hooligansField = new JTextField();
+        JTextField hooligansField = new JTextField(); // para escribir el número de hinchas
 
         JButton startButton = new JButton("Iniciar simulación");
         JButton cancelButton = new JButton("Cancelar");
@@ -32,43 +32,43 @@ public class StartGUI extends JFrame {
         panel.add(startButton);
         panel.add(cancelButton);
 
-        add(panel);
+        add(panel); // agrega el panel completo al JFrame (ventana)
 
-        // Acción del botón Iniciar
-        startButton.addActionListener(e -> {
+        startButton.addActionListener(e -> { // accion del botón Iniciar
             try {
+
+                // lee y convierte los valores ingresados a enteros
                 int capacity = Integer.parseInt(capacityField.getText().trim());
                 int totalHooligans = Integer.parseInt(hooligansField.getText().trim());
 
+                // muestra un cuadro de confirmación antes de iniciar
                 int confirm = JOptionPane.showConfirmDialog(
-                        this,
-                        "¿Desea iniciar la simulación?",
-                        "Confirmación",
+                        this, "¿Desea iniciar la simulación?", "Confirmación",
                         JOptionPane.YES_NO_OPTION
                 );
 
+                // si el usuario confirma con "Sí"
                 if (confirm == JOptionPane.YES_OPTION) {
                     dispose(); // cierra esta ventana
                     Simulation.startSimulation(capacity, totalHooligans);
                 }
 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar solo números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe ingresar solo números enteros.", "Error", JOptionPane.ERROR_MESSAGE); // si el usuario escribió algo que no es un número entero
             }
         });
 
-        // Acción del botón Cancelar
+        // acción del botón cancelar
         cancelButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Simulación cancelada. ¡Hasta pronto!");
-            System.exit(0);
+            System.exit(0);  // cierra el programa
         });
     }
 
-    // Metodo para iniciar esta GUI
     public static void showMenu() {
-        SwingUtilities.invokeLater(() -> {
-            StartGUI gui = new StartGUI();
-            gui.setVisible(true);
+        SwingUtilities.invokeLater(() -> { // ejecuta la creación de la GUI dentro del hilo principal de Swing
+            StartGUI gui = new StartGUI(); // crea una instancia de la ventana
+            gui.setVisible(true); // la muestra en pantalla
         });
     }
 }
