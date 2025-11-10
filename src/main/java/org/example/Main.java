@@ -18,6 +18,5 @@ public class Main {
         Menu menu = new Menu(); // creamos objeto menu
 
         menu.showMenu(); // inicializamos el metodo de menu
-
     }
 }

@@ -37,3 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### archivo .xml ###
+/resultadoDeLaSimulación.xml
