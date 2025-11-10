@@ -84,10 +84,13 @@ public class Stadium {
                 }
             }
 
+        while (hooligansInside < attended) {
+            Thread.sleep(500);
+        }
+
         if (hooligansInside >= capacity) {
             System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
             if (gui != null) gui.appendMessage("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
-            closed = true;
         } else {
             System.out.println("- El estadio cierra, pero quedaron asientos libres.");
             if (gui != null) gui.appendMessage("- El estadio cierra, pero quedaron asientos libres.");
@@ -95,9 +98,7 @@ public class Stadium {
 
         closed = true; // bandera cambio a true. cerro el campeon de siglo
 
-        while (hooligansInside < capacity) {
-            Thread.sleep(500); // da tiempo a los hilos que todavía están entrando
-        }
+        Thread.sleep(500); // un tiempo. da tiempo a los hilos que todavía están entrando
 
         showFinalDistribution();
     }
