@@ -83,8 +83,15 @@ public class Stadium {
                     mutex.release();
                 }
             }
-        System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
-        if (gui != null) {gui.appendMessage("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");}
+
+        if (hooligansInside >= capacity) {
+            System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
+            if (gui != null) gui.appendMessage("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
+            closed = true;
+        } else {
+            System.out.println("- El estadio cierra, pero quedaron asientos libres.");
+            if (gui != null) gui.appendMessage("- El estadio cierra, pero quedaron asientos libres.");
+        }
 
         closed = true; // bandera cambio a true. cerro el campeon de siglo
 
