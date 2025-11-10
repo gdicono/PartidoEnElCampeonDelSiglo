@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            PrintStream dualOut = new DualPrint(new FileOutputStream("resultadoFinal.xml"), System.out);
+            PrintStream dualOut = new DualPrint(new FileOutputStream("resultadoDeLaSimulación.xml"), System.out);
             System.setOut(dualOut);  // redirige la salida por default (System.out) hacia dualOut.
             System.setErr(dualOut); // tambien con los errores
         } catch (FileNotFoundException e) {

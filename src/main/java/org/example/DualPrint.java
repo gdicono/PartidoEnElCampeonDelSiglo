@@ -14,7 +14,7 @@ public class DualPrint extends PrintStream { // su objetivo es enviar la misma i
     }
 
     @Override
-    public void write(byte[] buf, int off, int len) {
+    public void write(byte[] buf, int off, int len) { // metodo que sobreescribe el metodo write byte[] - array de bytes que se quiere sobreescirbir. int off - inidice inicial dentro del buffer donde se empieza a escribir. int len - cantidad de bytes que se va a escrinbir a partir del off
         try {
 
             super.write(buf, off, len); // escribe los datos en el archivo indicado por fileOut.

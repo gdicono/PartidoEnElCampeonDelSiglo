@@ -70,7 +70,7 @@ public class Stadium {
                     mutex.release();
                 }
             }
-        System.out.println("Todos los hinchas fueron atendidos. El controlador cierra el estadio.");
+        System.out.println("ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
         closed = true; // bandera cambio a true. cerro el campeon de siglo
 
         while (hooligansInside < capacity) {
@@ -107,6 +107,5 @@ public class Stadium {
         System.out.println("\nDistribución final de asientos:");
         System.out.println("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
     }
-
 
 }
