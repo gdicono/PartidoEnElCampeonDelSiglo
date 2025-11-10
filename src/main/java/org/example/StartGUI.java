@@ -50,7 +50,7 @@ public class StartGUI extends JFrame {
                 // si el usuario confirma con "Sí"
                 if (confirm == JOptionPane.YES_OPTION) {
                     dispose(); // cierra esta ventana
-                    Simulation.startSimulation(capacity, totalHooligans);
+                    new Thread(() -> Simulation.startSimulation(capacity, totalHooligans)).start();
                 }
 
             } catch (NumberFormatException ex) {
