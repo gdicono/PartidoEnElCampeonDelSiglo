@@ -17,7 +17,7 @@ public class Stadium {
 
     private final Queue<HooliganInfo> waitingQueue = new ConcurrentLinkedQueue<>(); // cola que sigue con el principio FIFO - tiene de cola enlazada para hilos (puede agregar o sacar elementos de diferentes hilos sin problemas de concurrencia)
     private volatile boolean closed = false; // bandera para saber si el estadio ya cerró
-
+    private int hooligansInside = 0;
 
     public Stadium(int capacity) { // constructor
         this.seats = new Semaphore(capacity);
@@ -49,7 +49,7 @@ public class Stadium {
 
         int attended = 0;
 
-        while (attended < capacity)
+                while (attended < capacity)
             {
                 hooligans.acquire(); // espera hasta que haya al menos un hincha que quiera entrar. Si no hay, el controlador se bloquea acá
 
@@ -72,6 +72,12 @@ public class Stadium {
             }
         System.out.println("Todos los hinchas fueron atendidos. El controlador cierra el estadio.");
         closed = true; // bandera cambio a true. cerro el campeon de siglo
+
+        while (hooligansInside < capacity) {
+            Thread.sleep(500); // da tiempo a los hilos que todavía están entrando
+        }
+
+        showFinalDistribution();
     }
 
     public void checkTicket(HooliganInfo hincha) throws InterruptedException {
@@ -93,7 +99,14 @@ public class Stadium {
         else {
             nacionalCount++;}
 
-        System.out.println("Distrubución de asientos: Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
+        hooligansInside++;
         mutex.release();
     }
+
+    public void showFinalDistribution() {
+        System.out.println("\nDistribución final de asientos:");
+        System.out.println("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
+    }
+
+
 }
