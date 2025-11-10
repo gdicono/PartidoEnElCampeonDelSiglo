@@ -15,9 +15,7 @@ public class Main {
             e.printStackTrace(); // lanza excepcion si hay algun error
         }
 
-        Menu menu = new Menu(); // creamos objeto menu
-
-        menu.showMenu(); // inicializamos el metodo de menu
+        StartGUI.showMenu();
 
     }
 }

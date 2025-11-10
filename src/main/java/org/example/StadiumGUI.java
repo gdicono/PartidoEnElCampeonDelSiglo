@@ -13,6 +13,8 @@ public class StadiumGUI extends JFrame { // hereda de JFrame: una ventana comple
 
     private final int capacity; // capacidad total del estadio
 
+    private final JButton restartButton;
+
     public StadiumGUI(int capacity) { // constructor: se ejecuta cuando creamos una instancia de StadiumGUI
         this.capacity = capacity;
 
@@ -49,9 +51,17 @@ public class StadiumGUI extends JFrame { // hereda de JFrame: una ventana comple
         consoleArea.setEditable(false); // no se puede escribir a mano
         JScrollPane scrollPane = new JScrollPane(consoleArea); // agregamos scroll automático
 
+        restartButton = new JButton("Reiniciar simulación");
+        restartButton.setEnabled(false); // deshabilitado hasta el final
+        restartButton.addActionListener(e -> {
+            dispose(); // cierra la ventana actual
+            StartGUI.showMenu(); // vuelve al menú inicial
+        });
+
         // agregamos los componentes al panel principal
         panel.add(barPanel, BorderLayout.NORTH);  // las barras arriba
         panel.add(scrollPane, BorderLayout.CENTER); // el área de texto abajo
+        panel.add(restartButton, BorderLayout.SOUTH); // boton de reinicio
 
         add(panel); // agregamos el panel completo a la ventana
     }
@@ -69,6 +79,13 @@ public class StadiumGUI extends JFrame { // hereda de JFrame: una ventana comple
         SwingUtilities.invokeLater(() -> {
             consoleArea.append(message + "\n"); // agrega el mensaje al final
             consoleArea.setCaretPosition(consoleArea.getDocument().getLength()); // hace que el scroll baje automáticamente al final del texto
+        });
+    }
+
+    public void onSimulationEnd() {
+        SwingUtilities.invokeLater(() -> {
+            appendMessage("\nSimulación finalizada. Puede reiniciarla con el botón de abajo.");
+            restartButton.setEnabled(true); // habilita el botón
         });
     }
 

@@ -136,6 +136,8 @@ public class Stadium {
 
         System.out.println("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
         if (gui != null) {gui.appendMessage("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);}
+
+        if (gui != null) gui.onSimulationEnd();
     }
 
 }
