@@ -7,7 +7,7 @@ public class Simulation { //maneja la simulacion de los hinchas y el estadio
     {
         Stadium stadium = new Stadium(capacity); // crea objeto estadio. Al campeon del siglo
 
-        int realHooligans = Math.min(capacity, totalHooligans);
+        int realHooligans = Math.min(capacity, totalHooligans); // limita la cantidad de hinchas "reales" para que no supere la capacidad del estadio.
 
         Controller controller = new Controller(stadium, realHooligans); // crea al verificador que va a controlar las entradas
         controller.start(); // lo inicializa
