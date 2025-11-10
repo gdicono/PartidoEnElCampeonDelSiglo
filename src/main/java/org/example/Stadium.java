@@ -14,10 +14,10 @@ public class Stadium {
 
     private int penarolCount = 0; // contador de hinchas de peñarol para distribución de asientos
     private int nacionalCount = 0; // contador de hinchas de nacional para distribución de asientos
+    private int hooligansInside = 0; // cantidad de hinchas que efectivamente entraron al estadio
 
     private final Queue<HooliganInfo> waitingQueue = new ConcurrentLinkedQueue<>(); // cola que sigue con el principio FIFO - tiene de cola enlazada para hilos (puede agregar o sacar elementos de diferentes hilos sin problemas de concurrencia)
-    private volatile boolean closed = false; // bandera para saber si el estadio ya cerró
-    private int hooligansInside = 0;
+    private volatile boolean closed = false; // bandera para saber si el estadio ya alcanzo cu capacidad y cerró
 
     public Stadium(int capacity) { // constructor
         this.seats = new Semaphore(capacity);
@@ -88,19 +88,19 @@ public class Stadium {
 
     public void enterToTheStadium(int id, String team) throws InterruptedException { // simula el momento en que el hincha pasa al estadio
         System.out.println("Hincha "+ id + " de " + team + " esta entrando.");
-        Thread.sleep(2000); // Simula el tiempo que tarda en pasar por los molinetes o la puerta (1 segundo)
+        Thread.sleep(2000); // simula el tiempo que tarda en pasar por la puerta para estar en la tribuna
         System.out.println("Hincha "+ id + " de " + team + " está en la tribuna.");
 
         mutex.acquire();
 
         if (team.equals("Peñarol")) {
-            penarolCount++;
+            penarolCount++; // aumentamos contador de hinchas de peñarol que ingresaron al estadio
         }
         else {
-            nacionalCount++;}
+            nacionalCount++;} // aumentamos contador de hinchas de nacional que ingresaron al estadio
 
-        hooligansInside++;
-        mutex.release();
+        hooligansInside++; // aumentamos contador de hinchas que ingresaron al estadio
+        mutex.release(); // sale de la sección crítica
     }
 
     public void showFinalDistribution() {
