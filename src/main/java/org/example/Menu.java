@@ -32,10 +32,10 @@ public class Menu { // menu interactivo
 
         if (Confirmation.askConfirmation(scanner))
         {
-            System.out.println("Iniciando... ");
+            System.out.println("Iniciando! ");
             Simulation.startSimulation(capacity, totalHooligans);
         } else {
-            System.out.println("Simulación cancelada por el usuario");
+            System.out.println("Simulación cancelada por el usuario. Hasta pronto!");
         }
         scanner.close(); // cerramos el scanner
     }
