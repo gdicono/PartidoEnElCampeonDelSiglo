@@ -82,9 +82,9 @@ public class StadiumGUI extends JFrame { // hereda de JFrame: una ventana comple
         });
     }
 
-    public void onSimulationEnd() {
+    public void onSimulationEnd() { // metodo que muestra la finalizacion de la simulacion
         SwingUtilities.invokeLater(() -> {
-            appendMessage("\nSimulación finalizada. Puede reiniciarla con el botón de abajo.");
+            appendMessage("\nSimulación finalizada.");
             restartButton.setEnabled(true); // habilita el botón
         });
     }

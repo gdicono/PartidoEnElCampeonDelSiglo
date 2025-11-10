@@ -37,18 +37,17 @@ public class StartGUI extends JFrame {
         startButton.addActionListener(e -> { // accion del botón Iniciar
             try {
 
-                // lee y convierte los valores ingresados a enteros
-                int capacity = Integer.parseInt(capacityField.getText().trim());
+                int capacity = Integer.parseInt(capacityField.getText().trim()); // lee y convierte los valores ingresados a enteros
                 int totalHooligans = Integer.parseInt(hooligansField.getText().trim());
 
-                // muestra un cuadro de confirmación antes de iniciar
-                int confirm = JOptionPane.showConfirmDialog(
+
+                int confirm = JOptionPane.showConfirmDialog( // muestra un cuadro de confirmación antes de iniciar
                         this, "¿Desea iniciar la simulación?", "Confirmación",
                         JOptionPane.YES_NO_OPTION
                 );
 
-                // si el usuario confirma con "Sí"
-                if (confirm == JOptionPane.YES_OPTION) {
+
+                if (confirm == JOptionPane.YES_OPTION) { // si el usuario confirma con "S"
                     dispose(); // cierra esta ventana
                     new Thread(() -> Simulation.startSimulation(capacity, totalHooligans)).start();
                 }
@@ -58,14 +57,13 @@ public class StartGUI extends JFrame {
             }
         });
 
-        // acción del botón cancelar
-        cancelButton.addActionListener(e -> {
+        cancelButton.addActionListener(e -> {  // acción del botón cancelar
             JOptionPane.showMessageDialog(this, "Simulación cancelada. ¡Hasta pronto!");
             System.exit(0);  // cierra el programa
         });
     }
 
-    public static void showMenu() {
+    public static void showMenu() { // metodo que muestra el menu
         SwingUtilities.invokeLater(() -> { // ejecuta la creación de la GUI dentro del hilo principal de Swing
             StartGUI gui = new StartGUI(); // crea una instancia de la ventana
             gui.setVisible(true); // la muestra en pantalla
