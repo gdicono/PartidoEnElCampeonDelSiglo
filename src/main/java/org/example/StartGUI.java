@@ -14,10 +14,10 @@ public class StartGUI extends JFrame {
         JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10)); // GridLayout(4, 2, 10, 10): 4 filas, 2 columnas, con separación de 10px
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // margen interno del panel (arriba, izquierda, abajo, derecha)
 
-        JLabel capacityLabel = new JLabel("Capacidad del estadio:");
+        JLabel capacityLabel = new JLabel("Cantidad de asientos disponibles en el estadio:");
         JTextField capacityField = new JTextField(); // para escribir la capacidad
 
-        JLabel hooligansLabel = new JLabel("Cantidad de hinchas que llegan:");
+        JLabel hooligansLabel = new JLabel("Cantidad de hinchas que llegan al estadio:");
         JTextField hooligansField = new JTextField(); // para escribir el número de hinchas
 
         JButton startButton = new JButton("Iniciar simulación");

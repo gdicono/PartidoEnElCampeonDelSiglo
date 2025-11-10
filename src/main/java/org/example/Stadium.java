@@ -10,7 +10,7 @@ public class Stadium {
     private final Semaphore hooligans = new Semaphore(0); // semaforo que representa a los hinchas que llegan. Cuando llega un hincha el semaforo se libera, avisando asi al controlador
     private final Semaphore controler = new Semaphore(0); // semaforo que representa al controlador de entradas. El controlador libera el semaforo cuadno termina de verificar a un hincha. oermitiendo que entre al estadio.
     private final Semaphore mutex = new  Semaphore(1); // mutua exclusión.  Solo permite que un hilo a la vez modifique variables compartidas
-    private final Semaphore seats;
+    private final Semaphore seats; // asientos disponibles
 
     private int penarolCount = 0; // contador de hinchas de peñarol para distribución de asientos
     private int nacionalCount = 0; // contador de hinchas de nacional para distribución de asientos
