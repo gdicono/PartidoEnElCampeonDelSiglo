@@ -60,7 +60,7 @@ public class Stadium {
 
         int attended = 0;
 
-                while (attended < capacity)
+                while (attended < capacity) // mientras el controlador no haya atendido a todos los posibles hinchas (hasta llenar la capacidad total del estadio)
             {
                 hooligans.acquire(); // espera hasta que haya al menos un hincha que quiera entrar. Si no hay, el controlador se bloquea acá
 
@@ -77,18 +77,19 @@ public class Stadium {
                     checkTicket(next); // simula el proceso de revisar el ticket antes de dejar entrar
                     controler.release(); // libera al hincha para que pueda entrar (simula que el verificador le da paso)
 
-                    attended++;
+                    attended++; // aumenta el contador de hinchas que fueron atendidos (no significa que esten adentr)
                 }
                 else {
-                    mutex.release();
+                    mutex.release(); // sale de la sección crítica. Ahora otros hilos pueden acceder a las variables compartidas
+
                 }
             }
 
-        while (hooligansInside < attended) {
+        while (hooligansInside < attended) { // espera hasta que todos los hinchas que fueron atendidos efectivamente hayan entrado al estadio
             Thread.sleep(500);
         }
 
-        if (seats.availablePermits() == 0) {
+        if (seats.availablePermits() == 0) { // Si no quedan asientos disponibles (semaforo en 0), Todos los lugares fueron ocupados.
             System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
             if (gui != null) gui.appendMessage("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
         } else {
@@ -98,9 +99,9 @@ public class Stadium {
 
         closed = true; // bandera cambio a true. cerro el campeon de siglo
 
-        Thread.sleep(500); // un tiempo. da tiempo a los hilos que todavía están entrando
+        Thread.sleep(500); // pausa para darle tiempo a los hilos que estén finalizando el ingres.
 
-        showFinalDistribution();
+        showFinalDistribution(); // muestra la distribucion final
     }
 
     public void checkTicket(HooliganInfo hincha) throws InterruptedException {
