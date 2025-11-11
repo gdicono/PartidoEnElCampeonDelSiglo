@@ -14,6 +14,8 @@ public class Stadium {
 
     private int penarolCount = 0; // contador de hinchas de peñarol para distribución de asientos
     private int nacionalCount = 0; // contador de hinchas de nacional para distribución de asientos
+    private int hooligansInside = 0;
+
 
     private final Queue<HooliganInfo> waitingQueue = new ConcurrentLinkedQueue<>(); // cola que sigue con el principio FIFO - tiene de cola enlazada para hilos (puede agregar o sacar elementos de diferentes hilos sin problemas de concurrencia)
     private volatile boolean closed = false; // bandera para saber si el estadio ya cerró
@@ -70,8 +72,21 @@ public class Stadium {
                     mutex.release();
                 }
             }
-        System.out.println("Todos los hinchas fueron atendidos. El controlador cierra el estadio.");
+
+        while (hooligansInside < attended) { // espera hasta que todos los hinchas que fueron atendidos efectivamente hayan entrado al estadio
+            Thread.sleep(500);
+        }
+
+        if (seats.availablePermits() == 0)
+        {
+            System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
+        } else {
+            System.out.println("- El estadio cierra, pero quedaron asientos libres.");
+        }
+
         closed = true; // bandera cambio a true. cerro el campeon de siglo
+        Thread.sleep(500);
+        showFinalDistribution(); // muestra la distribucion final
     }
 
     public void checkTicket(HooliganInfo hincha) throws InterruptedException {
@@ -93,7 +108,14 @@ public class Stadium {
         else {
             nacionalCount++;}
 
-        System.out.println("Distrubución de asientos: Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
+        hooligansInside++;
+
         mutex.release();
+    }
+
+    public void showFinalDistribution()
+    {
+        System.out.println("\nDistribución final de asientos:");
+        System.out.println("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
     }
 }
