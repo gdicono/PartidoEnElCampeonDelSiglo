@@ -42,7 +42,7 @@ public class StartGUI extends JFrame {
 
 
                 int confirm = JOptionPane.showConfirmDialog( // muestra un cuadro de confirmación antes de iniciar
-                        this, "¿Desea iniciar la simulación?", "Confirmación",
+                        this, "Desea iniciar la simulación?", "Confirmación",
                         JOptionPane.YES_NO_OPTION
                 );
 
@@ -58,7 +58,7 @@ public class StartGUI extends JFrame {
         });
 
         cancelButton.addActionListener(e -> {  // acción del botón cancelar
-            JOptionPane.showMessageDialog(this, "Simulación cancelada. ¡Hasta pronto!");
+            JOptionPane.showMessageDialog(this, "Simulación cancelada. Hasta pronto!");
             System.exit(0);  // cierra el programa
         });
     }
