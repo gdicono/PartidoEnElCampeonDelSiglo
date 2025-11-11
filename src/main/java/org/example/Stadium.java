@@ -70,13 +70,20 @@ public class Stadium {
                     mutex.release();
                 }
             }
-        System.out.println("ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
-        closed = true; // bandera cambio a true. cerro el campeon de siglo
 
         while (hooligansInside < capacity) {
             Thread.sleep(500); // da tiempo a los hilos que todavía están entrando
         }
 
+
+        if (seats.availablePermits() == 0) {
+            System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
+        }
+        else {
+            System.out.println("- El estadio cierra, pero quedaron asientos libres.");
+        }
+        closed = true; // bandera cambio a true. cerro el campeon de siglo
+        Thread.sleep(500);
         showFinalDistribution();
     }
 
