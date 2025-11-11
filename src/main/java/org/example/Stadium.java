@@ -133,10 +133,7 @@ public class Stadium {
 
         hooligansInside++; // aumentamos contador de hinchas que ingresaron al estadio
 
-        if (gui != null)
-        {
-            gui.updateBars(penarolCount, nacionalCount, hooligansInside);
-        }
+        if (gui != null) {gui.updateBars(penarolCount, nacionalCount, hooligansInside);}
 
         mutex.release(); // sale de la sección crítica
     }
@@ -148,7 +145,8 @@ public class Stadium {
         System.out.println("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);
         if (gui != null) {gui.appendMessage("Peñarol: " + penarolCount + " - Nacional: " + nacionalCount);}
 
-        if (gui != null) gui.onSimulationEnd();
+        if (gui != null) {gui.onSimulationEnd();}
+
     }
 
 }
