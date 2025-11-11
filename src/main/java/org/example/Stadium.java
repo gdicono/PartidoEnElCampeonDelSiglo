@@ -134,7 +134,9 @@ public class Stadium {
         hooligansInside++; // aumentamos contador de hinchas que ingresaron al estadio
 
         if (gui != null)
+        {
             gui.updateBars(penarolCount, nacionalCount, hooligansInside);
+        }
 
         mutex.release(); // sale de la sección crítica
     }
