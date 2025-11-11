@@ -67,8 +67,8 @@ public class Stadium {
                 mutex.acquire(); // entra a la sección crítica para modificar la variable compartida
                 HooliganInfo next = waitingQueue.poll(); // obtiene al próximo hincha en la cola
 
-                if (next != null) {
-                    hooligansWaiting--;
+                if (next!= null) { // si next no es nulo
+                    hooligansWaiting--; // eliminamos 1 del contador de hincbhas esperando
                     System.out.println("- Controlador atiende al hincha " + next.id + " (" + next.team + "). (Esperando: " + hooligansWaiting + ")");
                     if (gui != null) {gui.appendMessage("- Controlador atiende al hincha " + next.id + " (" + next.team + "). (Esperando: " + hooligansWaiting + ")");}
 
