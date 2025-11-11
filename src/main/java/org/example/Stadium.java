@@ -88,7 +88,7 @@ public class Stadium {
             Thread.sleep(500);
         }
 
-        if (hooligansInside >= capacity) {
+        if (seats.availablePermits() == 0) {
             System.out.println("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
             if (gui != null) gui.appendMessage("- ATENCIÓN! - SOLD OUT! Las cantidad de asientos disponibles ya fueron cubiertos. El controlador cierra la entrada del estadio.");
         } else {
